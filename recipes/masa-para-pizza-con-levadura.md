@@ -6,7 +6,7 @@ permalink: /masa-para-pizza-con-levadura
 
 ## Ingredientes
 
- * 1 kg de harina
+* 1 kg de harina
 * Levadura (1 sobre o un cubo)
 * 20 g de sal
 * 50 ml de aceite
