@@ -4,3 +4,9 @@
 
 layout: home
 ---
+
+<ul>
+{% for recipe in site.data.recipes %}
+  <li>{{recipe.title}}</li>
+{% endfor %}
+</ul>
