@@ -6,20 +6,10 @@ layout: home
 ---
 
 <ul>
-{% for recipe in site.data.recipes %}
-  <li>
-  <a href="{{recipe.url}}" >{{recipe.title}}</a>
-  </li>
-{% endfor %}
-</ul>
-
-<hr>
-
-<ul>
 {% for page in site.pages %}
-  <li>
-  <a href="{{page.url}}" >{{page.title}}</a>
-  </li>
+  {% if page.title %}
+  <li><a href="{{page.url}}" >{{page.title}}</a></li>
+  {% endif %}
 {% endfor %}
 </ul>
 
