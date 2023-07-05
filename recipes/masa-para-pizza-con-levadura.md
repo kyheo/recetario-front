@@ -1,7 +1,6 @@
 ---
 layout: page
 title: "Masa Para Pizza Con Levadura"
-permalink: /masa-para-pizza-con-levadura
 ---
 
 ## Ingredientes
