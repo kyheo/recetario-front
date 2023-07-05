@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Masa Para Pizza sin Levadura"
+title: "Masa para pizza sin levadura"
 ---
 ## ingredientes
 * 450 g de harina blanca

@@ -1,10 +1,8 @@
 ---
 layout: page
-title: "Masa Para Pizza Con Levadura"
+title: "Masa para pizza con levadura"
 ---
-
 ## Ingredientes
-
 * 1 kg de harina
 * Levadura (1 sobre o un cubo)
 * 20 g de sal
@@ -12,9 +10,7 @@ title: "Masa Para Pizza Con Levadura"
 * 600 ml de agua tibia
 * 20 ml de azúcar
 
-
 ## Preparación
-
 ### Para el amasado
 En bowl incorporar la harina, azúcar y levadura e Integrar. Incorporar la sal,
 el aceite y el agua (reservar un poco por las dudas) e integrar. Una vez que
@@ -30,7 +26,6 @@ húmedo (segundo levado). Cuando los bollos duplican el tamaño están      list
 para prepara la pizza.
 
 ### Para la cocción
-
 Precalentar el horno durante 15 minutos.
 
 En una asdera tirar un chorrito de aceite y estirar la masa con las manos,
