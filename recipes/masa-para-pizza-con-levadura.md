@@ -4,6 +4,8 @@ title: "Masa para pizza con levadura"
 tags: 
   - amasados
   - horno
+categories:
+  - recetas 
 ---
 
 * TOC
