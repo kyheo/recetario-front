@@ -5,10 +5,10 @@ layout: libdoc/default
     <div class="{{ page.content_class | default: 'm-grow m-w-1 u-mw-main u-bc-primary-max u-b-thin-dashed-alt' }}">
         <header class="u-bb-thin-dashed-alt u-p-lg" u-p-sm="sm">
             <h1 id="libdoc-page-title" class="u-mt-none u-mb-xs">{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
-            {% if page.tiempo_preparacion %}<p class="u-fs-xs">Preparación: {{page.tiempo_preparacion}} </p>{% endif %}
-            {% if page.tiempo_coccion %}<p class="u-fs-xs">Cocción: {{page.tiempo_coccion}} </p>{% endif %}
         </header>
         <div id="libdoc-content" class="u-p-lg u-p-sm--sm">
+            {% if page.tiempo_preparacion %}<div class="u-fs-xs">Preparación: {{page.tiempo_preparacion}}</div>{% endif %}
+            {% if page.tiempo_coccion %}<div class="u-fs-xs">Cocción: {{page.tiempo_coccion}}</div>{% endif %}
             {{ content }}
         </div>
     </div>
