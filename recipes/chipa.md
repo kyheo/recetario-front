@@ -6,8 +6,8 @@ tags:
   - horno
 category: recetas 
 
-tiempo-preparacion: 10 minutos
-tiempo-coccion: 15 minutos
+tiempo_preparacion: 10 minutos
+tiempo_coccion: 15 minutos
 ---
 
 * TOC

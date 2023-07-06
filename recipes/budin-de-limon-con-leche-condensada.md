@@ -6,8 +6,8 @@ tags:
   - merienda
 category: recetas 
 
-tiempo-preparacion:
-tiempo-coccion:
+tiempo_preparacion:
+tiempo_coccion:
 ---
 
 * TOC
