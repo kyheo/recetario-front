@@ -2,7 +2,7 @@
 layout: libdoc/page
 title: "Masa para pizza sin levadura"
 ---
-*
+* TOC
 {:toc}
 
 ## Ingredientes
