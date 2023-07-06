@@ -1,6 +1,11 @@
 ---
 layout: libdoc/page
 title: "Masa para pizza sin levadura"
+tags: 
+  - amasados
+  - horno
+categories:
+  - recetas 
 ---
 * TOC
 {:toc}
