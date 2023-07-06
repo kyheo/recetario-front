@@ -2,7 +2,7 @@
 layout: libdoc/page
 title: "Masa para pizza sin levadura"
 ---
-## ingredientes
+## Ingredientes
 * 450 g de harina blanca
 * 1 cdta sal
 * 1 cdta polvo de hornear
