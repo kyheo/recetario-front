@@ -16,7 +16,7 @@ tiempo_coccion: 15 minutos
 
 ## Ingredientes
 * 125 grs Harina Leudante
-* 100 grs qeso rallado
+* 100 grs queso rallado
 * 1 huevo grande
 * 5 grs de sal
 * 2 cucharadas de queso crema
@@ -25,7 +25,7 @@ tiempo_coccion: 15 minutos
 ## Preparación
 Encender el horno y llevarlo a 170 para que se vaya calentando.
 
-Colocar en un bowl todos los ingredientes .
+Colocar en un bowl todos los ingredientes.
 
 Integrar hasta formará una masa uniforme, hacer todas bolitas iguales e ir
 acomodándolos en una placa espolvoreada con harina. Si quieren píntenlos con
