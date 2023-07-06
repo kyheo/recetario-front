@@ -1,6 +1,9 @@
 ---
 layout: libdoc/page
 title: "Masa para pizza con levadura"
+tags: 
+  - amasados
+  - horno
 ---
 
 * TOC
