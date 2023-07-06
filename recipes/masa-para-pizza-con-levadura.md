@@ -2,7 +2,8 @@
 layout: libdoc/page
 title: "Masa para pizza con levadura"
 ---
-*
+
+* TOC
 {:toc}
 
 ## Ingredientes
