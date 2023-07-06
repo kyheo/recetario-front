@@ -16,7 +16,7 @@ tiempo_coccion:
 ## Ingredientes
 
 
-* Papas – 1 kkg (5 unidades grandes)
+* Papas – 1 kg (5 unidades grandes)
 * Cebolla – 1 unidad grande (se puede poner si te gusta con mas)
 * Huevos – 5 unidades
 * Aceite para freír
