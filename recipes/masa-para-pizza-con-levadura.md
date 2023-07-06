@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: libdoc/page
 title: "Masa para pizza con levadura"
 ---
 ## Ingredientes
