@@ -4,8 +4,7 @@ title: "Masa para pizza sin levadura"
 tags: 
   - amasados
   - horno
-categories:
-  - recetas 
+category: recetas 
 ---
 * TOC
 {:toc}
