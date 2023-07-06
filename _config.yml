@@ -27,6 +27,7 @@ url: "https://recetario.marrese.com.ar/" # the base hostname & protocol for your
 
 # Build settings
 theme: minima
+
 plugins:
   - jekyll-feed
 
@@ -49,3 +50,6 @@ plugins:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+minima:
+  skin: dark
