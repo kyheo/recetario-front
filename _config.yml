@@ -28,8 +28,8 @@ url: "https://recetario.marrese.com.ar" # the base hostname & protocol for your 
 lang: es
 
 # Build settings
-# theme: minima
-remote_theme: olivier3lanc/Jekyll-LibDoc
+theme: minima
+# remote_theme: olivier3lanc/Jekyll-LibDoc
 
 plugins:
   - jekyll-feed
