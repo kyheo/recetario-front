@@ -8,7 +8,7 @@ layout: libdoc/default
         </header>
         <div id="libdoc-content" class="u-p-lg u-p-sm--sm">
             {% if page.tiempo_preparacion %}<span class="u-fs-xs"><b>Preparación: </b>{{page.tiempo_preparacion}}</span>{% endif %}
-            {% if page.tiempo_preparacion and page.tiempo_coccion%}}<span class="u-fs-xs"> - </span>{% endif %}
+            {% if page.tiempo_preparacion and page.tiempo_coccion%}<span class="u-fs-xs"> - </span>{% endif %}
             {% if page.tiempo_coccion %}<span class="u-fs-xs"><b>Cocción: </b>{{page.tiempo_coccion}}</span>{% endif %}
             {{ content }}
         </div>
