@@ -4,7 +4,7 @@ layout: libdoc/default
 <main class="m-grow m-w-1 c-grid m-nowrap m-center">
     <div class="{{ page.content_class | default: 'm-grow m-w-1 u-mw-main u-bc-primary-max u-b-thin-dashed-alt' }}">
         <header class="u-bb-thin-dashed-alt u-p-lg" u-p-sm="sm">
-            <h1 id="libdoc-page-title" class="u-mt-none u-mb-xs">{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
+            <h1 id="libdoc-page-title" class="u-mt-none u-mb-xs">{% if page.title %}{{ page.title  | capitalize }}{% else %}{{ site.title }}{% endif %}</h1>
         </header>
         <div id="libdoc-content" class="u-p-lg u-p-sm--sm">
             {% if page.tiempo_preparacion %}<span class="u-fs-xs"><b>Preparación: </b>{{page.tiempo_preparacion}}</span>{% endif %}

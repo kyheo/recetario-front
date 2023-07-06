@@ -1,10 +1,11 @@
 ---
 layout: libdoc/page-recipe
 title: "Masa para pizza con levadura"
+category: recetas 
+
 tags: 
   - amasados
   - horno
-category: recetas 
 
 tiempo_preparacion:
 tiempo_coccion:
@@ -16,7 +17,7 @@ tiempo_coccion:
 ## Ingredientes
 * 1 kg de harina
 * Levadura (1 sobre o un cubo)
-* 20 g de sal
+* 20 grs de sal
 * 50 ml de aceite
 * 600 ml de agua tibia
 * 20 ml de azúcar

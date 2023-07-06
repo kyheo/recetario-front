@@ -4,6 +4,10 @@ title: "Chipa"
 tags: amasados horno
 category: recetas 
 
+tags: 
+  - amasados
+  - horno
+
 tiempo_preparacion: 10 minutos
 tiempo_coccion: 15 minutos
 ---

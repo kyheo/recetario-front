@@ -1,10 +1,11 @@
 ---
 layout: libdoc/page-recipe
 title: "Masa para pizza sin levadura"
+category: recetas 
+
 tags: 
   - amasados
   - horno
-category: recetas 
 
 tiempo_preparacion:
 tiempo_coccion:
