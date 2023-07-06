@@ -1,9 +1,7 @@
 ---
 layout: libdoc/page-recipe
 title: "Chipa"
-tags: 
-  - amasados
-  - horno
+tags: amasados horno
 category: recetas 
 
 tiempo_preparacion: 10 minutos
