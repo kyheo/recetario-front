@@ -2,6 +2,9 @@
 layout: libdoc/page
 title: "Masa para pizza con levadura"
 ---
+*
+{:toc}
+
 ## Ingredientes
 * 1 kg de harina
 * Levadura (1 sobre o un cubo)
