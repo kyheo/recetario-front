@@ -1,5 +1,5 @@
 ---
-layout: libdoc/page
+layout: libdoc/page-recipe
 title: "Masa para pizza con levadura"
 tags: 
   - amasados
