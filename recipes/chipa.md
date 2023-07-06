@@ -5,6 +5,9 @@ tags:
   - amasados
   - horno
 category: recetas 
+
+tiempo-preparacion: 10 minutos
+tiempo-coccion: 15 minutos
 ---
 
 * TOC
@@ -31,5 +34,4 @@ huevo sino no hace falta es opcional.
 Hornear a 170 grados por 15 minutos dependiendo del tamaño .
 
 ## Notas
-
-Copiado de : https://www.instagram.com/p/BsJf2yEg8n-/?igshid=nonluwvdk4nn
+Copiado de: [https://www.instagram.com/p/BsJf2yEg8n-/?igshid=nonluwvdk4nn](https://www.instagram.com/p/BsJf2yEg8n-/?igshid=nonluwvdk4nn)
