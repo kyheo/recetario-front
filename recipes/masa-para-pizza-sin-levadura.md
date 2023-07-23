@@ -50,3 +50,5 @@ antes de cortarla.
 La masa se puede envolver en plástico y guardar en la heladera, pero lo
 recomendable es usarla cuando se la prepara porque es cuando mas fuerza va a
 tener para levantar.
+
+Y una idea es usar esta [Salsa para pizza](/recipes/salsa-para-pizza.html).

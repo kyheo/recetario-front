@@ -55,3 +55,5 @@ levado.
 En caso de haberlos guardado en el freezer, hay que dejarlos descongelarse
 dentro de la heladera, siempre bien tapados para que la masa no se reseque.
 Luego hay que regomar los pasos comenzando por el segundo levado.
+
+Y una idea es usar esta [Salsa para pizza](/recipes/salsa-para-pizza.html).
