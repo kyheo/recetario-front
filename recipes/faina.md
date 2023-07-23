@@ -47,4 +47,4 @@ Aproximadamente con la cantidad de arriba se necesita cocinar 20 minutos en unho
 
 ## Notas
 Para una asadera de 34 cm se necesitan aproximadamente 300 grs de harina de
-garbango.
+garbanzo.
