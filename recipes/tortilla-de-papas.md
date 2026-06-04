@@ -4,7 +4,8 @@ title: "Tortilla De Papas"
 category: recetas 
 
 tags: 
-  - 
+  - papas
+  - sarten
 
 tiempo_preparacion:
 tiempo_coccion: 

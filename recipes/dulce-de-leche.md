@@ -6,8 +6,8 @@ category: recetas
 tags: 
   - postre
 
-tiempo_preparacion:
-tiempo_coccion: 
+tiempo_preparacion: 3 horas
+tiempo_coccion: 3 horas
 ---
 
 * TOC

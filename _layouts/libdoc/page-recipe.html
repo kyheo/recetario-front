@@ -1,17 +1,113 @@
 ---
-layout: libdoc/default
+layout: default
 ---
-<main class="m-grow m-w-1 c-grid m-nowrap m-center">
-    <div class="{{ page.content_class | default: 'm-grow m-w-1 u-mw-main u-bc-primary-max u-b-thin-dashed-alt' }}">
-        <header class="u-bb-thin-dashed-alt u-p-lg" u-p-sm="sm">
-            <h1 id="libdoc-page-title" class="u-mt-none u-mb-xs">{% if page.title %}{{ page.title  | capitalize }}{% else %}{{ site.title }}{% endif %}</h1>
-        </header>
-        <div id="libdoc-content" class="u-p-lg u-p-sm--sm">
-            {% if page.tiempo_preparacion %}<span class="u-fs-xs"><b>Preparación: </b>{{page.tiempo_preparacion}}</span>{% endif %}
-            {% if page.tiempo_preparacion and page.tiempo_coccion%}<span class="u-fs-xs"> - </span>{% endif %}
-            {% if page.tiempo_coccion %}<span class="u-fs-xs"><b>Cocción: </b>{{page.tiempo_coccion}}</span>{% endif %}
-            {{ content }}
-        </div>
+<article class="recipe-detail">
+  <div class="recipe-navigation">
+    <a href="{{ '/' | relative_url }}" class="back-link">
+      <span class="back-arrow">←</span> Volver a recetas
+    </a>
+    <button onclick="window.print()" class="btn-print">
+      <span class="print-icon">🖨️</span> Imprimir Receta
+    </button>
+  </div>
+
+  <header class="recipe-header">
+    <h1 class="recipe-title">{{ page.title | escape }}</h1>
+    <div class="recipe-meta">
+      {% if page.tiempo_preparacion %}
+      <div class="meta-badge prep-badge">
+        <span class="meta-label">Prep:</span>
+        <span class="meta-value">{{ page.tiempo_preparacion }}</span>
+      </div>
+      {% endif %}
+      
+      {% if page.tiempo_coccion %}
+      <div class="meta-badge cook-badge">
+        <span class="meta-label">Cocción:</span>
+        <span class="meta-value">{{ page.tiempo_coccion }}</span>
+      </div>
+      {% endif %}
+
+      {% if page.tags %}
+      <div class="recipe-tags">
+        {% for tag in page.tags %}
+        <span class="tag-badge">{{ tag }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
     </div>
-    <div id="libdoc-toc-container" class="m-fw-mini c-position m-top-right m-anchor-top-left u-bc-primary-edge u-z-10" u-fixed="sm" u-none="sm"></div>
-</main>
+  </header>
+
+  <div class="recipe-content-body">
+    {{ content }}
+  </div>
+</article>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const contentBody = document.querySelector('.recipe-content-body');
+  if (!contentBody) return;
+
+  // 1. Identify key headers
+  const ingredientsHeader = document.getElementById('ingredientes');
+  let ingredientsList = null;
+  if (ingredientsHeader) {
+    ingredientsList = ingredientsHeader.nextElementSibling;
+  }
+
+  const prepHeader = document.getElementById('preparación') || document.getElementById('preparacion');
+  const prepSiblings = [];
+  if (prepHeader) {
+    let sibling = prepHeader.nextElementSibling;
+    while (sibling) {
+      prepSiblings.push(sibling);
+      sibling = sibling.nextElementSibling;
+    }
+  }
+
+  // 2. Format ingredients list as interactive checklist
+  if (ingredientsList && (ingredientsList.tagName === 'UL' || ingredientsList.tagName === 'OL')) {
+    const items = ingredientsList.querySelectorAll('li');
+    items.forEach((item, index) => {
+      const text = item.innerHTML;
+      const checkboxId = `ingredient-${index}`;
+      
+      // Wrap list item content in label and checkbox
+      item.innerHTML = `
+        <label class="ingredient-item" for="${checkboxId}">
+          <input type="checkbox" id="${checkboxId}" class="ingredient-checkbox">
+          <span class="checkbox-custom"></span>
+          <span class="ingredient-text">${text}</span>
+        </label>
+      `;
+    });
+  }
+
+  // 3. Restructure layout into columns if both sections exist
+  if (ingredientsHeader && ingredientsList && prepHeader) {
+    const columnsContainer = document.createElement('div');
+    columnsContainer.className = 'recipe-columns';
+
+    const leftColumn = document.createElement('div');
+    leftColumn.className = 'recipe-column ingredients-column';
+    leftColumn.appendChild(ingredientsHeader);
+    leftColumn.appendChild(ingredientsList);
+
+    const rightColumn = document.createElement('div');
+    rightColumn.className = 'recipe-column preparation-column';
+    rightColumn.appendChild(prepHeader);
+    prepSiblings.forEach(sib => rightColumn.appendChild(sib));
+
+    columnsContainer.appendChild(leftColumn);
+    columnsContainer.appendChild(rightColumn);
+
+    // Keep TOC at the very top if it exists
+    const toc = document.getElementById('markdown-toc');
+    contentBody.innerHTML = '';
+    if (toc) {
+      contentBody.appendChild(toc);
+    }
+    contentBody.appendChild(columnsContainer);
+  }
+});
+</script>

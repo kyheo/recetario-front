@@ -4,7 +4,8 @@ title: "Curry De Pollo Y Zanahorias"
 category: recetas 
 
 tags: 
-  - 
+  - pollo
+  - guiso
 
 tiempo_preparacion: 20 minutos
 tiempo_coccion: 30 minutos
