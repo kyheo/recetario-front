@@ -102,11 +102,11 @@ document.addEventListener('DOMContentLoaded', () => {
     columnsContainer.appendChild(rightColumn);
 
     // Keep TOC at the very top if it exists
-    const toc = document.getElementById('markdown-toc');
-    contentBody.innerHTML = '';
-    if (toc) {
-      contentBody.appendChild(toc);
-    }
+    // const toc = document.getElementById('markdown-toc');
+    // contentBody.innerHTML = '';
+    // if (toc) {
+    //   contentBody.appendChild(toc);
+    // }
     contentBody.appendChild(columnsContainer);
   }
 });
