@@ -10,9 +10,6 @@ tiempo_preparacion: 20 minutos
 tiempo_coccion: 60 minutos
 ---
 
-* TOC
-{:toc}
-
 ## Ingredientes
 
 * 800 grs carne picada

@@ -10,9 +10,6 @@ tiempo_preparacion: 3 horas
 tiempo_coccion:
 ---
 
-* TOC
-{:toc}
-
 ## Ingredientes
 * 1 lata de tomate peritas
 * 1 diente de ajo

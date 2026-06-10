@@ -12,9 +12,6 @@ tiempo_preparacion:
 tiempo_coccion: 
 ---
 
-* TOC
-{:toc}
-
 ## Ingredientes
 
 * 180 grs galletitas de vainilla

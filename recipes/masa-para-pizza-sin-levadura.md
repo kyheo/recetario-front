@@ -10,8 +10,6 @@ tags:
 tiempo_preparacion:
 tiempo_coccion:
 ---
-* TOC
-{:toc}
 
 ## Ingredientes
 * 450 g de harina blanca

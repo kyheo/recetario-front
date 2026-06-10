@@ -11,9 +11,6 @@ tiempo_preparacion:
 tiempo_coccion:
 ---
 
-* TOC
-{:toc}
-
 ## Ingredientes
 * 1 kg de harina
 * Levadura (1 sobre o un cubo)

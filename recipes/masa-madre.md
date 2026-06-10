@@ -10,9 +10,6 @@ tiempo_preparacion: 5 días
 tiempo_coccion: 
 ---
 
-* TOC
-{:toc}
-
 ## Ingredientes
 
 * Harina 000

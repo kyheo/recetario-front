@@ -11,9 +11,6 @@ tiempo_preparacion: 10 minutos
 tiempo_coccion: 25 minutos
 ---
 
-* TOC
-{:toc}
-
 ## Ingredientes
 * 50 grs de manteca
 * 120 grs de harina leudante

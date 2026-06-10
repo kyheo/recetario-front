@@ -11,9 +11,6 @@ tiempo_preparacion: 10 minutos
 tiempo_coccion: 35 minutos
 ---
 
-* TOC
-{:toc}
-
 ## Ingredientes
 
 * 4 muslos de pollo

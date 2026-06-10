@@ -12,9 +12,6 @@ tiempo_preparacion: 10 minutos
 tiempo_coccion: 15 minutos
 ---
 
-* TOC
-{:toc}
-
 
 ## Ingredientes
 * 125 grs Harina Leudante

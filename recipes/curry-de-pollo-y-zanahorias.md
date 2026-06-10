@@ -11,9 +11,6 @@ tiempo_preparacion: 20 minutos
 tiempo_coccion: 30 minutos
 ---
 
-* TOC
-{:toc}
-
 ## Ingredientes
 
 * Pechuga de pollo, 125 grs

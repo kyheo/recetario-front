@@ -10,9 +10,6 @@ tiempo_preparacion: 10 minutos
 tiempo_coccion: 25 minutos
 ---
 
-* TOC
-{:toc}
-
 ## Ingredientes
 
 * 2 cebollas medianas

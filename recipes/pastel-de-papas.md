@@ -10,9 +10,6 @@ tiempo_preparacion:
 tiempo_coccion: 
 ---
 
-* TOC
-{:toc}
-
 ## Ingredientes
 
 ### Pure

@@ -11,9 +11,6 @@ tiempo_preparacion: 1 hora
 tiempo_coccion: 10 minutos
 ---
 
-* TOC
-{:toc}
-
 ## Ingredientes
 
 **Por porción**

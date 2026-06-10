@@ -10,9 +10,6 @@ tiempo_preparacion: 10 minutos
 tiempo_coccion: 20 minutos
 ---
 
-* TOC
-{:toc}
-
 ## Ingredientes
 
 * 200 grs de harina de garbanzo

@@ -10,9 +10,6 @@ tiempo_preparacion: 10 minutos
 tiempo_coccion: Ni idea
 ---
 
-* TOC
-{:toc}
-
 ## Ingredientes
 
 

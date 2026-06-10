@@ -10,9 +10,6 @@ tiempo_preparacion: 20 minutos
 tiempo_coccion: 25 minutos
 ---
 
-* TOC
-{:toc}
-
 ## Ingredientes
 
 * Pechugas de pollo 2

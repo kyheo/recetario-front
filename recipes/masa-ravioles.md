@@ -11,9 +11,6 @@ tiempo_preparacion: 1 hora
 tiempo_coccion: 5 minutos
 ---
 
-* TOC
-{:toc}
-
 ## Ingredientes
 
 * 500 g de harina común

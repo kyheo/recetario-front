@@ -10,9 +10,6 @@ tiempo_preparacion:
 tiempo_coccion: 
 ---
 
-* TOC
-{:toc}
-
 ## Ingredientes
 
 * 1 pechuga de pollo

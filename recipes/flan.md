@@ -11,9 +11,6 @@ tiempo_preparacion: 10 minutos
 tiempo_coccion: De 1:30 horas a 2 horas.
 ---
 
-* TOC
-{:toc}
-
 ## Ingredientes
 
 * 1 taza de azucar en la flanera para hacer el caramelo

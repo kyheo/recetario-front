@@ -10,9 +10,6 @@ tiempo_preparacion: 3 horas
 tiempo_coccion: 3 horas
 ---
 
-* TOC
-{:toc}
-
 ## Ingredientes
 
 * 1 litro de leche entera
