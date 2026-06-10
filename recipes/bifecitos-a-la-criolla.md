@@ -4,14 +4,11 @@ title: "Bifecitos a la criolla"
 category: recetas 
 
 tags: 
-  - Guiso
+  - guiso
 
 tiempo_preparacion: 10 minutos
 tiempo_coccion: 30 minutos
 ---
-
-* TOC
-{:toc}
 
 ## Ingredientes
 * Bifes: 400g a 500g de bifes medianos y no muy gruesos (pueden ser de bola de lomo, nalga, cuadril o bife de chorizo si los cortás finos).
