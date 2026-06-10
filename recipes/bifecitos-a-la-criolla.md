@@ -16,19 +16,17 @@ tiempo_coccion: 30 minutos
 ## Ingredientes
 * Bifes: 400g a 500g de bifes medianos y no muy gruesos (pueden ser de bola de lomo, nalga, cuadril o bife de chorizo si los cortás finos).
 
-* Vegetales:
-  * 1 cebolla grande.
-  * 1/2 morrón rojo.
-  * 1/2 morrón verde.
-  * 2 tomates medianos redondos (o una lata de tomates perita cubeteados).
-  * 1 diente de ajo.
-  * 2 papas medianas.
+* 1 cebolla grande.
+* 1/2 morrón rojo.
+* 1/2 morrón verde.
+* 2 tomates medianos redondos (o una lata de tomates perita cubeteados).
+* 1 diente de ajo.
+* 2 papas medianas.
 
-* Líquidos y Condimentos:
-  * 1/2 vaso de vino blanco (opcional, pero suma mucho).
-  * 1/2 vaso de caldo de carne (o agua).
-  * Sal, pimienta negra, pimentón dulce y una hoja de laurel.
-  * Aceite de oliva o de girasol.
+* 1/2 vaso de vino blanco (opcional, pero suma mucho).
+* 1/2 vaso de caldo de carne (o agua).
+* Sal, pimienta negra, pimentón dulce y una hoja de laurel.
+* Aceite de oliva o de girasol.
 
 
 # Preparación
