@@ -4,8 +4,7 @@ title: "Bifecitos a la criolla"
 category: recetas 
 
 tags: 
-  - horno
-  - merienda
+  - Guiso
 
 tiempo_preparacion: 10 minutos
 tiempo_coccion: 30 minutos
