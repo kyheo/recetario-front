@@ -3,18 +3,25 @@ layout: libdoc/page
 title: Inicio
 ---
 
-<section class="homepage-hero">
-  <h1>Mi Recetario de Cocina</h1>
-  <p>Explora mis recetas de cocina favoritas de forma rápida y sencilla.</p>
+{% assign recipes = site.pages | where: "layout", "libdoc/page-recipe" | sort: "title" %}
+
+{% comment %} A recipe's card colour comes from the first of these tags it has {% endcomment %}
+{% assign cat_order = "postre,amasados,pastas,pollo,guiso,papas,merienda,sarten,horno" | split: "," %}
+
+<section class="page-intro">
+  <h1>Recetas</h1>
+  <p class="results-status" id="results-status" aria-live="polite">{{ recipes.size }} recetas</p>
 </section>
 
 <section class="controls-section">
   <div class="search-wrapper">
-    <span class="search-icon">🔍</span>
-    <input type="text" id="recipe-search" class="search-input" placeholder="Buscar recetas por título o etiquetas...">
+    {% include icon.html name="search" class="search-icon" %}
+    <input type="search" id="recipe-search" class="search-input" placeholder="Buscar por título o etiqueta"
+      aria-label="Buscar recetas" autocomplete="off">
+    <button type="button" class="search-clear" id="search-clear" aria-label="Borrar búsqueda" hidden>
+      {% include icon.html name="x" %}
+    </button>
   </div>
-
-  {% assign recipes = site.pages | where: "layout", "libdoc/page-recipe" | sort: "title" %}
 
   {% assign all_tags = "" | split: "," %}
   {% for recipe in recipes %}
@@ -28,37 +35,40 @@ title: Inicio
   {% endfor %}
   {% assign all_tags = all_tags | sort %}
 
-  <div class="filter-wrapper">
-    <span class="filter-label">Filtrar por etiqueta:</span>
-    <div class="tags-filter-list">
-      <button class="filter-tag-btn active" data-tag="all">Todas</button>
-      {% for tag in all_tags %}
-      <button class="filter-tag-btn" data-tag="{{ tag | downcase }}">{{ tag | capitalize }}</button>
-      {% endfor %}
-    </div>
+  <div class="tags-filter-list" role="group" aria-label="Filtrar por etiqueta">
+    <button type="button" class="filter-tag-btn active" data-tag="all" aria-pressed="true">Todas</button>
+    {% for tag in all_tags %}
+    <button type="button" class="filter-tag-btn" data-tag="{{ tag | downcase }}" aria-pressed="false">{{ tag | capitalize }}</button>
+    {% endfor %}
   </div>
 </section>
 
 <div class="recipes-grid" id="recipes-grid">
   {% for recipe in recipes %}
   {% assign tag_list = recipe.tags | join: "," | downcase %}
+  {% assign cat = "" %}
+  {% for c in cat_order %}
+  {% if recipe.tags contains c %}{% assign cat = c %}{% break %}{% endif %}
+  {% endfor %}
+  {% assign prep = recipe.tiempo_preparacion | strip | replace: "minutos", "min" %}
+  {% assign cook = recipe.tiempo_coccion | strip | replace: "minutos", "min" %}
   <div class="recipe-card-wrapper" data-title="{{ recipe.title | downcase }}" data-tags="{{ tag_list }}">
-    <a href="{{ recipe.url | relative_url }}" class="recipe-card">
-      <div>
-        <h3 class="recipe-card-title">{{ recipe.title | escape }}</h3>
-        <div class="recipe-card-meta">
-          {% if recipe.tiempo_preparacion %}
-          <span class="card-meta-item">
-            <span>⏱️</span> Prep: {{ recipe.tiempo_preparacion }}
-          </span>
-          {% endif %}
-          {% if recipe.tiempo_coccion %}
-          <span class="card-meta-item">
-            <span>🔥</span> Cocción: {{ recipe.tiempo_coccion }}
-          </span>
-          {% endif %}
-        </div>
+    <a href="{{ recipe.url | relative_url }}" class="recipe-card" data-cat="{{ cat }}">
+      <h2 class="recipe-card-title">{{ recipe.title | escape }}</h2>
+      {% if prep != "" or cook != "" %}
+      <div class="recipe-card-meta">
+        {% if prep != "" %}
+        <span class="card-meta-item">
+          {% include icon.html name="clock" %}<span class="visually-hidden">Preparación:</span> {{ prep }}
+        </span>
+        {% endif %}
+        {% if cook != "" %}
+        <span class="card-meta-item">
+          {% include icon.html name="flame" %}<span class="visually-hidden">Cocción:</span> {{ cook }}
+        </span>
+        {% endif %}
       </div>
+      {% endif %}
       {% if recipe.tags %}
       <div class="recipe-card-tags">
         {% for tag in recipe.tags %}
@@ -70,19 +80,20 @@ title: Inicio
   </div>
   {% endfor %}
 
-  <div class="no-results-card" id="no-results" style="display: none;">
-    <div class="no-results-icon">🍽️</div>
-    <h3>No se encontraron recetas</h3>
-    <p>Prueba buscando con otra palabra o etiqueta.</p>
+  <div class="no-results-card" id="no-results" hidden>
+    <h2>No se encontraron recetas</h2>
+    <p>Probá buscando con otra palabra o etiqueta.</p>
   </div>
 </div>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('recipe-search');
+    const searchClear = document.getElementById('search-clear');
     const tagButtons = document.querySelectorAll('.filter-tag-btn');
     const cards = document.querySelectorAll('.recipe-card-wrapper');
     const noResults = document.getElementById('no-results');
+    const status = document.getElementById('results-status');
 
     let activeTag = 'all';
     let searchQuery = '';
@@ -96,30 +107,36 @@ title: Inicio
         const matchesSearch = title.includes(searchQuery) || tags.includes(searchQuery);
         const matchesTag = activeTag === 'all' || tags.split(',').includes(activeTag);
 
-        if (matchesSearch && matchesTag) {
-          card.style.display = 'block';
-          visibleCount++;
-        } else {
-          card.style.display = 'none';
-        }
+        card.hidden = !(matchesSearch && matchesTag);
+        if (!card.hidden) visibleCount++;
       });
 
-      if (visibleCount === 0) {
-        noResults.style.display = 'block';
-      } else {
-        noResults.style.display = 'none';
-      }
+      noResults.hidden = visibleCount !== 0;
+      status.textContent = visibleCount === cards.length
+        ? `${cards.length} recetas`
+        : `${visibleCount} de ${cards.length} recetas`;
     }
 
     searchInput.addEventListener('input', (e) => {
       searchQuery = e.target.value.toLowerCase().trim();
+      searchClear.hidden = e.target.value === '';
       filterRecipes();
+    });
+
+    searchClear.addEventListener('click', () => {
+      searchInput.value = '';
+      searchInput.dispatchEvent(new Event('input'));
+      searchInput.focus();
     });
 
     tagButtons.forEach(btn => {
       btn.addEventListener('click', () => {
-        tagButtons.forEach(b => b.classList.remove('active'));
+        tagButtons.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-pressed', 'false');
+        });
         btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
         activeTag = btn.getAttribute('data-tag');
         filterRecipes();
       });

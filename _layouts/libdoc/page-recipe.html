@@ -1,41 +1,42 @@
 ---
 layout: default
 ---
+{% assign prep = page.tiempo_preparacion | strip %}
+{% assign cook = page.tiempo_coccion | strip %}
 <article class="recipe-detail">
-  <div class="recipe-navigation">
+  <nav class="recipe-navigation">
     <a href="{{ '/' | relative_url }}" class="back-link">
-      <span class="back-arrow">←</span> Volver a recetas
+      {% include icon.html name="arrow-left" %} Recetas
     </a>
-    <button onclick="window.print()" class="btn-print">
-      <span class="print-icon">🖨️</span> Imprimir Receta
+    <button type="button" onclick="window.print()" class="btn-icon btn-print" aria-label="Imprimir receta"
+      title="Imprimir receta">
+      {% include icon.html name="printer" %}
     </button>
-  </div>
+  </nav>
 
   <header class="recipe-header">
     <h1 class="recipe-title">{{ page.title | escape }}</h1>
-    <div class="recipe-meta">
-      {% if page.tiempo_preparacion %}
-      <div class="meta-badge prep-badge">
-        <span class="meta-label">Prep:</span>
-        <span class="meta-value">{{ page.tiempo_preparacion }}</span>
-      </div>
-      {% endif %}
-      
-      {% if page.tiempo_coccion %}
-      <div class="meta-badge cook-badge">
-        <span class="meta-label">Cocción:</span>
-        <span class="meta-value">{{ page.tiempo_coccion }}</span>
-      </div>
+    <ul class="recipe-meta">
+      {% if prep != "" %}
+      <li class="meta-chip">
+        {% include icon.html name="clock" %}
+        <span class="meta-label">Preparación</span>
+        <span class="meta-value">{{ prep }}</span>
+      </li>
       {% endif %}
 
-      {% if page.tags %}
-      <div class="recipe-tags">
-        {% for tag in page.tags %}
-        <span class="tag-badge">{{ tag }}</span>
-        {% endfor %}
-      </div>
+      {% if cook != "" %}
+      <li class="meta-chip">
+        {% include icon.html name="flame" %}
+        <span class="meta-label">Cocción</span>
+        <span class="meta-value">{{ cook }}</span>
+      </li>
       {% endif %}
-    </div>
+
+      {% for tag in page.tags %}
+      <li class="tag-badge">{{ tag }}</li>
+      {% endfor %}
+    </ul>
   </header>
 
   <div class="recipe-content-body">
@@ -66,12 +67,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 2. Format ingredients list as interactive checklist
-  if (ingredientsList && (ingredientsList.tagName === 'UL' || ingredientsList.tagName === 'OL')) {
+  const hasIngredientsList = ingredientsList && (ingredientsList.tagName === 'UL' || ingredientsList.tagName === 'OL');
+  if (hasIngredientsList) {
     const items = ingredientsList.querySelectorAll('li');
     items.forEach((item, index) => {
       const text = item.innerHTML;
       const checkboxId = `ingredient-${index}`;
-      
+
       // Wrap list item content in label and checkbox
       item.innerHTML = `
         <label class="ingredient-item" for="${checkboxId}">
@@ -103,6 +105,61 @@ document.addEventListener('DOMContentLoaded', () => {
 
     contentBody.innerHTML = '';
     contentBody.appendChild(columnsContainer);
+
+    // Paragraphs that are only a bold label (e.g. "**El armado**:") act as sub-headings
+    rightColumn.querySelectorAll(':scope > p').forEach(p => {
+      const strong = p.firstElementChild;
+      if (strong && strong.tagName === 'STRONG' &&
+          p.textContent.trim().replace(/:$/, '') === strong.textContent.trim().replace(/:$/, '')) {
+        p.classList.add('step-group-title');
+      }
+    });
+  }
+
+  // 4. Checked-ingredients counter, a clear button, and remembering checks per recipe
+  if (hasIngredientsList) {
+    const checkboxes = Array.from(ingredientsList.querySelectorAll('.ingredient-checkbox'));
+    const storageKey = `recetario:ingredientes:${location.pathname}`;
+
+    const tools = document.createElement('div');
+    tools.className = 'ingredients-tools';
+    tools.innerHTML = `
+      <span class="ingredients-progress" aria-live="polite"></span>
+      <button type="button" class="ingredients-clear">Quitar marcas</button>
+    `;
+    ingredientsList.before(tools);
+    const progress = tools.querySelector('.ingredients-progress');
+    const clearButton = tools.querySelector('.ingredients-clear');
+
+    function update() {
+      const checked = checkboxes.filter(cb => cb.checked).length;
+      progress.textContent = `${checked} de ${checkboxes.length}`;
+      clearButton.disabled = checked === 0;
+      try {
+        const indexes = checkboxes.flatMap((cb, i) => cb.checked ? [i] : []);
+        if (indexes.length) {
+          localStorage.setItem(storageKey, JSON.stringify(indexes));
+        } else {
+          localStorage.removeItem(storageKey);
+        }
+      } catch (e) {
+        // Storage unavailable (private mode, blocked): checks just aren't remembered
+      }
+    }
+
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey) || '[]');
+      saved.forEach(i => { if (checkboxes[i]) checkboxes[i].checked = true; });
+    } catch (e) {
+      // Ignore unreadable or missing saved state
+    }
+
+    checkboxes.forEach(cb => cb.addEventListener('change', update));
+    clearButton.addEventListener('click', () => {
+      checkboxes.forEach(cb => { cb.checked = false; });
+      update();
+    });
+    update();
   }
 });
 </script>
