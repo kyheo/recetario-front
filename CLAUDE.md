@@ -1,0 +1,38 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What this is
+
+A personal recipe site ("Recetario") built with Jekyll 4 and served at https://recetario.marrese.com.ar (see
+`CNAME`). All content and UI text is in Spanish (`lang: es`). There is no README, test suite or linter.
+
+## Commands
+
+```sh
+bundle install                 # install gems from Gemfile.lock
+bundle exec jekyll serve       # local preview at http://localhost:4000 (restart after editing _config.yml)
+bundle exec jekyll build       # build into _site/
+```
+
+Deployment is automatic: pushing to `main` runs `.github/workflows/jekyll-gh-pages.yml`, which builds with Ruby 3.2
+and `JEKYLL_ENV=production` and deploys to GitHub Pages. A push to `main` publishes the live site.
+
+## Architecture
+
+- **Recipes** are plain Markdown pages in `recipes/` (not a Jekyll collection). Each has front matter:
+  `layout: libdoc/page-recipe`, `title`, `category: recetas`, `tags` (YAML list), `tiempo_preparacion`,
+  `tiempo_coccion`. The body has a `## Ingredientes` section (a bullet list) followed by `## Preparación`.
+- **Homepage** (`index.html`) builds the recipe grid by selecting `site.pages` whose layout is
+  `libdoc/page-recipe`, so a new recipe only appears there if it uses that layout. Tag filter buttons are collected
+  from all recipes' `tags` at build time; search and tag filtering are client-side JS over `data-title` / `data-tags`
+  attributes (lowercased).
+- **Recipe layout** (`_layouts/libdoc/page-recipe.html`) post-processes the rendered Markdown in the browser: it
+  finds the headings by their kramdown auto-generated ids (`ingredientes`, `preparación`/`preparacion`), turns the
+  list right after "Ingredientes" into checkboxes, and moves everything after "Preparación" into a two-column layout.
+  Renaming those headings or putting content between "Ingredientes" and its list breaks this.
+- Layout chain: `libdoc/page-recipe` and `libdoc/page` both extend `_layouts/default.html` (header, footer,
+  `{% seo %}`, Google Fonts). All styling is in `assets/css/style.css`.
+- `_includes/libdoc/menu-basic.html` is a leftover sidebar include from the original theme and isn't referenced by
+  any layout.
+- `recipes/template.md` is gitignored, so it may exist locally as a personal starting point but isn't in the repo.
