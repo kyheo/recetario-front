@@ -553,20 +553,6 @@ a:hover {
   margin-bottom: 8px;
 }
 
-/* TOC (If present, we style it cleanly) */
-#markdown-toc {
-  background-color: var(--primary-light);
-  border-left: 4px solid var(--primary);
-  padding: 16px 20px 16px 40px;
-  margin-bottom: 30px;
-  border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0;
-  font-size: 0.95rem;
-}
-
-#markdown-toc li {
-  margin-bottom: 6px;
-}
-
 /* Site Footer */
 .site-footer {
   background-color: var(--card-bg);
@@ -627,8 +613,7 @@ a:hover {
   .site-header,
   .site-footer,
   .recipe-navigation,
-  .btn-print,
-  #markdown-toc {
+  .btn-print {
     display: none !important;
   }
 

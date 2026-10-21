@@ -1,7 +1,6 @@
 ---
 layout: libdoc/page-recipe
 title: "Chipa"
-tags: amasados horno
 category: recetas 
 
 tags: 
