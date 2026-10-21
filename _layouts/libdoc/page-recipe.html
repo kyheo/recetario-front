@@ -8,6 +8,9 @@ layout: default
     <a href="{{ '/' | relative_url }}" class="back-link">
       {% include icon.html name="arrow-left" %} Recetas
     </a>
+    <button type="button" class="wake-toggle" id="wake-toggle" aria-pressed="false" hidden>
+      {% include icon.html name="sun" %} Pantalla encendida
+    </button>
   </nav>
 
   <header class="recipe-header">
@@ -45,14 +48,34 @@ document.addEventListener('DOMContentLoaded', () => {
   const contentBody = document.querySelector('.recipe-content-body');
   if (!contentBody) return;
 
-  // 1. Identify key headers
+  // localStorage can be unavailable (private mode, blocked): then nothing is remembered
+  const store = {
+    get(key) {
+      try { return JSON.parse(localStorage.getItem(key)); } catch (e) { return null; }
+    },
+    set(key, value) {
+      try {
+        if (value === null) localStorage.removeItem(key);
+        else localStorage.setItem(key, JSON.stringify(value));
+      } catch (e) { /* not remembered */ }
+    },
+  };
+
+  setUpWakeLock();
+
+  // 1. Identify key headers; everything between them is the ingredients section
   const ingredientsHeader = document.getElementById('ingredientes');
-  let ingredientsList = null;
+  const prepHeader = document.getElementById('preparación') || document.getElementById('preparacion');
+
+  const ingredientNodes = [];
   if (ingredientsHeader) {
-    ingredientsList = ingredientsHeader.nextElementSibling;
+    let sibling = ingredientsHeader.nextElementSibling;
+    while (sibling && sibling !== prepHeader) {
+      ingredientNodes.push(sibling);
+      sibling = sibling.nextElementSibling;
+    }
   }
 
-  const prepHeader = document.getElementById('preparación') || document.getElementById('preparacion');
   const prepSiblings = [];
   if (prepHeader) {
     let sibling = prepHeader.nextElementSibling;
@@ -62,13 +85,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 2. Format ingredients list as interactive checklist
-  const hasIngredientsList = ingredientsList && (ingredientsList.tagName === 'UL' || ingredientsList.tagName === 'OL');
-  if (hasIngredientsList) {
-    const items = ingredientsList.querySelectorAll('li');
-    items.forEach((item, index) => {
+  // 2. Format ingredient lists as interactive checklists
+  const ingredientLists = ingredientNodes.filter(node => node.tagName === 'UL' || node.tagName === 'OL');
+  let ingredientIndex = 0;
+  ingredientLists.forEach(list => {
+    list.querySelectorAll('li').forEach(item => {
       const text = item.innerHTML;
-      const checkboxId = `ingredient-${index}`;
+      const checkboxId = `ingredient-${ingredientIndex++}`;
 
       // Wrap list item content in label and checkbox
       item.innerHTML = `
@@ -79,83 +102,206 @@ document.addEventListener('DOMContentLoaded', () => {
         </label>
       `;
     });
-  }
+  });
 
   // 3. Restructure layout into columns if both sections exist
-  if (ingredientsHeader && ingredientsList && prepHeader) {
-    const columnsContainer = document.createElement('div');
-    columnsContainer.className = 'recipe-columns';
+  if (!(ingredientsHeader && ingredientLists.length && prepHeader)) return;
 
-    const leftColumn = document.createElement('div');
-    leftColumn.className = 'recipe-column ingredients-column';
-    leftColumn.appendChild(ingredientsHeader);
-    leftColumn.appendChild(ingredientsList);
+  const columnsContainer = document.createElement('div');
+  columnsContainer.className = 'recipe-columns';
 
-    const rightColumn = document.createElement('div');
-    rightColumn.className = 'recipe-column preparation-column';
-    rightColumn.appendChild(prepHeader);
-    prepSiblings.forEach(sib => rightColumn.appendChild(sib));
+  const leftColumn = document.createElement('div');
+  leftColumn.className = 'recipe-column ingredients-column';
+  leftColumn.appendChild(ingredientsHeader);
+  ingredientNodes.forEach(node => leftColumn.appendChild(node));
 
-    columnsContainer.appendChild(leftColumn);
-    columnsContainer.appendChild(rightColumn);
+  const rightColumn = document.createElement('div');
+  rightColumn.className = 'recipe-column preparation-column';
+  rightColumn.appendChild(prepHeader);
+  prepSiblings.forEach(sib => rightColumn.appendChild(sib));
 
-    contentBody.innerHTML = '';
-    contentBody.appendChild(columnsContainer);
+  columnsContainer.appendChild(leftColumn);
+  columnsContainer.appendChild(rightColumn);
 
-    // Paragraphs that are only a bold label (e.g. "**El armado**:") act as sub-headings
-    rightColumn.querySelectorAll(':scope > p').forEach(p => {
-      const strong = p.firstElementChild;
-      if (strong && strong.tagName === 'STRONG' &&
-          p.textContent.trim().replace(/:$/, '') === strong.textContent.trim().replace(/:$/, '')) {
-        p.classList.add('step-group-title');
-      }
-    });
+  contentBody.innerHTML = '';
+  contentBody.appendChild(createSectionTabs(rightColumn));
+  contentBody.appendChild(columnsContainer);
+
+  // Paragraphs that are only a bold label (e.g. "**El armado**:") act as sub-headings
+  rightColumn.querySelectorAll(':scope > p').forEach(p => {
+    const strong = p.firstElementChild;
+    if (strong && strong.tagName === 'STRONG' &&
+        p.textContent.trim().replace(/:$/, '') === strong.textContent.trim().replace(/:$/, '')) {
+      p.classList.add('step-group-title');
+    }
+  });
+
+  // 4. Ingredients: counter, clear button, and remembering checks per recipe
+  const checkboxes = Array.from(leftColumn.querySelectorAll('.ingredient-checkbox'));
+  const ingredientsTools = createSectionTools('Quitar marcas', 'Quitar las marcas de los ingredientes');
+  ingredientsHeader.after(ingredientsTools.element);
+  const ingredientsKey = `recetario:ingredientes:${location.pathname}`;
+
+  function updateIngredients() {
+    const checked = checkboxes.flatMap((cb, i) => cb.checked ? [i] : []);
+    ingredientsTools.progress.textContent = `${checked.length} de ${checkboxes.length}`;
+    ingredientsTools.clear.disabled = checked.length === 0;
+    store.set(ingredientsKey, checked.length ? checked : null);
   }
 
-  // 4. Checked-ingredients counter, a clear button, and remembering checks per recipe
-  if (hasIngredientsList) {
-    const checkboxes = Array.from(ingredientsList.querySelectorAll('.ingredient-checkbox'));
-    const storageKey = `recetario:ingredientes:${location.pathname}`;
+  (store.get(ingredientsKey) || []).forEach(i => { if (checkboxes[i]) checkboxes[i].checked = true; });
+  checkboxes.forEach(cb => cb.addEventListener('change', updateIngredients));
+  ingredientsTools.clear.addEventListener('click', () => {
+    checkboxes.forEach(cb => { cb.checked = false; });
+    updateIngredients();
+  });
+  updateIngredients();
 
-    const tools = document.createElement('div');
-    tools.className = 'ingredients-tools';
-    tools.innerHTML = `
-      <span class="ingredients-progress" aria-live="polite"></span>
-      <button type="button" class="ingredients-clear">Quitar marcas</button>
+  // 5. Steps: tap a step to mark it done; the next one is highlighted. Notes after the
+  // preparation (a later h1/h2, e.g. "Notas") aren't steps.
+  const steps = [];
+  for (const node of prepSiblings) {
+    if (node.tagName === 'H1' || node.tagName === 'H2') break;
+    if (node.tagName === 'UL' || node.tagName === 'OL') {
+      steps.push(...node.querySelectorAll(':scope > li'));
+    } else if (node.tagName === 'P' && !node.classList.contains('step-group-title')) {
+      steps.push(node);
+    }
+  }
+  if (!steps.length) return;
+
+  const stepsTools = createSectionTools('Reiniciar', 'Desmarcar todos los pasos');
+  prepHeader.after(stepsTools.element);
+  const stepsKey = `recetario:pasos:${location.pathname}`;
+
+  function updateSteps() {
+    const done = steps.flatMap((step, i) => step.classList.contains('step-done') ? [i] : []);
+    const current = steps.findIndex(step => !step.classList.contains('step-done'));
+    steps.forEach((step, i) => {
+      step.setAttribute('aria-checked', String(step.classList.contains('step-done')));
+      step.classList.toggle('step-current', done.length > 0 && i === current);
+    });
+    stepsTools.progress.textContent = current === -1 ? 'Listo' : `Paso ${current + 1} de ${steps.length}`;
+    stepsTools.clear.disabled = done.length === 0;
+    store.set(stepsKey, done.length ? done : null);
+  }
+
+  function toggleStep(step) {
+    step.classList.toggle('step-done');
+    updateSteps();
+  }
+
+  (store.get(stepsKey) || []).forEach(i => { if (steps[i]) steps[i].classList.add('step-done'); });
+  steps.forEach(step => {
+    step.classList.add('step');
+    step.setAttribute('role', 'checkbox');
+    step.tabIndex = 0;
+    step.addEventListener('click', (e) => {
+      if (e.target.closest('a') || window.getSelection().toString()) return;
+      toggleStep(step);
+    });
+    step.addEventListener('keydown', (e) => {
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        toggleStep(step);
+      }
+    });
+  });
+  stepsTools.clear.addEventListener('click', () => {
+    steps.forEach(step => step.classList.remove('step-done'));
+    updateSteps();
+  });
+  updateSteps();
+
+  // A row with a progress text and a reset button, shown under a section heading
+  function createSectionTools(clearLabel, clearDescription) {
+    const element = document.createElement('div');
+    element.className = 'section-tools';
+    element.innerHTML = `
+      <span class="section-progress" aria-live="polite"></span>
+      <button type="button" class="section-clear" aria-label="${clearDescription}">${clearLabel}</button>
     `;
-    ingredientsList.before(tools);
-    const progress = tools.querySelector('.ingredients-progress');
-    const clearButton = tools.querySelector('.ingredients-clear');
+    return {
+      element,
+      progress: element.querySelector('.section-progress'),
+      clear: element.querySelector('.section-clear'),
+    };
+  }
 
-    function update() {
-      const checked = checkboxes.filter(cb => cb.checked).length;
-      progress.textContent = `${checked} de ${checkboxes.length}`;
-      clearButton.disabled = checked === 0;
+  // Ingredientes / Preparación tabs, shown on phones where the sections are stacked
+  function createSectionTabs(preparationColumn) {
+    const tabs = document.createElement('nav');
+    tabs.className = 'section-tabs';
+    tabs.setAttribute('aria-label', 'Secciones de la receta');
+    tabs.innerHTML = `
+      <a class="section-tab" href="#${ingredientsHeader.id}">Ingredientes</a>
+      <a class="section-tab" href="#${prepHeader.id}">Preparación</a>
+    `;
+    const [ingredientsTab, preparationTab] = tabs.querySelectorAll('.section-tab');
+
+    // Preparación is active once its section reaches the middle of the screen, or when the
+    // page is scrolled to the bottom (short recipes can't scroll it any higher)
+    function updateActiveTab() {
+      const pastMiddle = preparationColumn.getBoundingClientRect().top < window.innerHeight / 2;
+      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+      const inPreparation = pastMiddle || atBottom;
+      ingredientsTab.classList.toggle('active', !inPreparation);
+      preparationTab.classList.toggle('active', inPreparation);
+    }
+
+    [ingredientsTab, preparationTab].forEach(tab => tab.addEventListener('click', () => {
+      ingredientsTab.classList.toggle('active', tab === ingredientsTab);
+      preparationTab.classList.toggle('active', tab === preparationTab);
+    }));
+    window.addEventListener('scroll', updateActiveTab, { passive: true });
+    window.addEventListener('resize', updateActiveTab);
+    setTimeout(updateActiveTab);
+    return tabs;
+  }
+
+  // "Pantalla encendida" keeps the screen from locking while cooking, where the browser
+  // supports it. The choice is remembered across recipes.
+  function setUpWakeLock() {
+    const toggle = document.getElementById('wake-toggle');
+    if (!toggle || !('wakeLock' in navigator)) return;
+    toggle.hidden = false;
+
+    const wakeKey = 'recetario:pantalla-encendida';
+    let wanted = store.get(wakeKey) === true;
+    let lock = null;
+
+    async function acquire() {
+      if (lock || document.visibilityState !== 'visible') return;
       try {
-        const indexes = checkboxes.flatMap((cb, i) => cb.checked ? [i] : []);
-        if (indexes.length) {
-          localStorage.setItem(storageKey, JSON.stringify(indexes));
-        } else {
-          localStorage.removeItem(storageKey);
-        }
+        lock = await navigator.wakeLock.request('screen');
+        lock.addEventListener('release', () => { lock = null; });
       } catch (e) {
-        // Storage unavailable (private mode, blocked): checks just aren't remembered
+        lock = null; // Refused (e.g. battery saver); retried on the next tap or return to the page
       }
     }
 
-    try {
-      const saved = JSON.parse(localStorage.getItem(storageKey) || '[]');
-      saved.forEach(i => { if (checkboxes[i]) checkboxes[i].checked = true; });
-    } catch (e) {
-      // Ignore unreadable or missing saved state
+    function render() {
+      toggle.setAttribute('aria-pressed', String(wanted));
     }
 
-    checkboxes.forEach(cb => cb.addEventListener('change', update));
-    clearButton.addEventListener('click', () => {
-      checkboxes.forEach(cb => { cb.checked = false; });
-      update();
+    toggle.addEventListener('click', async () => {
+      wanted = !wanted;
+      store.set(wakeKey, wanted ? true : null);
+      render();
+      if (wanted) {
+        await acquire();
+      } else if (lock) {
+        await lock.release();
+      }
     });
-    update();
+
+    // The lock is dropped when the page is hidden; take it again when it comes back.
+    // Some browsers only grant it after a tap, so also retry on the first tap.
+    document.addEventListener('visibilitychange', () => { if (wanted) acquire(); });
+    document.addEventListener('click', () => { if (wanted) acquire(); }, { once: true });
+
+    render();
+    if (wanted) acquire();
   }
 });
 </script>

@@ -1,6 +1,6 @@
 ---
 layout: libdoc/page-recipe
-title: "Tarta De Jamón, Queso, Cebolla Y Huevo"
+title: "Tarta de jamón, queso, cebolla y huevo"
 category: recetas 
 
 tags: 

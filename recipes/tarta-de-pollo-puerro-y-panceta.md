@@ -1,6 +1,6 @@
 ---
 layout: libdoc/page-recipe
-title: "Tarta De Pollo, Puerro Y Panceta"
+title: "Tarta de pollo, puerro y panceta"
 category: recetas 
 
 tags: 

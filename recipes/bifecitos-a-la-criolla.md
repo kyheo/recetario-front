@@ -26,9 +26,9 @@ tiempo_coccion: 30 minutos
 * Aceite de oliva o de girasol.
 
 
-# Preparación
+## Preparación
 
-**Preparación**:
+**Preparativos**:
 * Cortá la cebolla y los morrones en tiritas (juliana) no muy finas.
 * Cortá los tomates en rodajas o cubos.
 * Pelá las papas y cortalas en rodajas de un poco menos de 1 cm (si las hacés muy gruesas van a tardar en cocinarse; si las hacés muy finas se van a desarmar).

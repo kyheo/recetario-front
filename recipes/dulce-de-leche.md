@@ -1,6 +1,6 @@
 ---
 layout: libdoc/page-recipe
-title: "Dulce de Leche"
+title: "Dulce de leche"
 category: recetas 
 
 tags: 

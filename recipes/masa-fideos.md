@@ -1,6 +1,6 @@
 ---
 layout: libdoc/page-recipe
-title: "Masa para Fideos"
+title: "Masa para fideos"
 category: recetas 
 
 tags: 

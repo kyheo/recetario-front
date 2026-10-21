@@ -1,6 +1,6 @@
 ---
 layout: libdoc/page-recipe
-title: "Medialunas Express"
+title: "Medialunas express"
 category: recetas 
 
 tags: 

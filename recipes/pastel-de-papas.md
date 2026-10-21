@@ -1,6 +1,6 @@
 ---
 layout: libdoc/page-recipe
-title: "Pastel De Papas"
+title: "Pastel de papas"
 category: recetas 
 
 tags: 

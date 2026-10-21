@@ -1,6 +1,6 @@
 ---
 layout: libdoc/page-recipe
-title: "Empanaditas Chinas"
+title: "Empanaditas chinas"
 category: recetas 
 
 tags: 

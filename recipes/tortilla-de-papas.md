@@ -1,11 +1,11 @@
 ---
 layout: libdoc/page-recipe
-title: "Tortilla De Papas"
+title: "Tortilla de papas"
 category: recetas 
 
 tags: 
   - papas
-  - sarten
+  - sartén
 
 tiempo_preparacion:
 tiempo_coccion: 

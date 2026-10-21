@@ -1,6 +1,6 @@
 ---
 layout: libdoc/page-recipe
-title: "Faina"
+title: "Fainá"
 category: recetas 
 
 tags: 

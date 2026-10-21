@@ -1,6 +1,6 @@
 ---
 layout: libdoc/page-recipe
-title: "Budin De Limón Con Leche Condensada"
+title: "Budín de limón con leche condensada"
 category: recetas 
 
 tags: 
@@ -20,7 +20,7 @@ tiempo_coccion: 25 minutos
 * Azúcar impalpable
 
 
-# Preparación
+## Preparación
 Volcar el contenido de la lata de leche condensada en un bol, batir e ir
 incorporando de a uno los huevos y la manteca fundida.
 
