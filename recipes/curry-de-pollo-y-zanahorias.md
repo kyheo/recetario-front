@@ -1,6 +1,6 @@
 ---
 layout: libdoc/page-recipe
-title: "Curry De Pollo Y Zanahorias"
+title: "Curry de pollo y zanahorias"
 category: recetas 
 
 tags: 

@@ -1,6 +1,6 @@
 ---
 layout: libdoc/page-recipe
-title: "Ñoquis De Papas"
+title: "Ñoquis de papas"
 category: recetas 
 
 tags: 

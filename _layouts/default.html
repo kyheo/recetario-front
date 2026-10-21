@@ -8,6 +8,10 @@
   <meta name="theme-color" content="#fbf8f2" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#1c1714" media="(prefers-color-scheme: dark)">
   {% seo %}
+  <link rel="icon" href="{{ '/assets/icons/icon.svg' | relative_url }}" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="{{ '/assets/icons/apple-touch-icon.png' | relative_url }}">
+  <link rel="manifest" href="{{ '/manifest.webmanifest' | relative_url }}">
+  <meta name="apple-mobile-web-app-title" content="{{ site.title }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -35,6 +39,13 @@
       <p>&copy; {{ 'now' | date: "%Y" }} {{ site.title }} · Hecho con ❤️ y Jekyll</p>
     </div>
   </footer>
+
+  <script>
+    // Keeps recipes available offline (see sw.js)
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('{{ "/sw.js" | relative_url }}');
+    }
+  </script>
 
 </body>
 

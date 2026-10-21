@@ -1,13 +1,13 @@
 ---
 layout: libdoc/page-recipe
-title: "Coliflor Tempura (Sin Hervir)"
+title: "Coliflor tempura (sin hervir)"
 category: recetas 
 
 tags: 
   - horno
 
 tiempo_preparacion: 10 minutos
-tiempo_coccion: Ni idea
+tiempo_coccion:
 ---
 
 ## Ingredientes

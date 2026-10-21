@@ -6,7 +6,7 @@ title: Inicio
 {% assign recipes = site.pages | where: "layout", "libdoc/page-recipe" | sort: "title" %}
 
 {% comment %} A recipe's card colour comes from the first of these tags it has {% endcomment %}
-{% assign cat_order = "postre,amasados,pastas,pollo,guiso,papas,merienda,sarten,horno" | split: "," %}
+{% assign cat_order = "postre,amasados,pastas,pollo,guiso,papas,merienda,sartén,horno" | split: "," %}
 
 <section class="page-intro">
   <h1>Recetas</h1>
@@ -98,14 +98,17 @@ title: Inicio
     let activeTag = 'all';
     let searchQuery = '';
 
+    // Lowercase and drop accents, so "limon" finds "Limón" and "noquis" finds "Ñoquis"
+    const normalize = text => text.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+
     function filterRecipes() {
       let visibleCount = 0;
       cards.forEach(card => {
-        const title = card.getAttribute('data-title') || '';
-        const tags = card.getAttribute('data-tags') || '';
+        const title = normalize(card.getAttribute('data-title') || '');
+        const tags = normalize(card.getAttribute('data-tags') || '');
 
         const matchesSearch = title.includes(searchQuery) || tags.includes(searchQuery);
-        const matchesTag = activeTag === 'all' || tags.split(',').includes(activeTag);
+        const matchesTag = activeTag === 'all' || tags.split(',').includes(normalize(activeTag));
 
         card.hidden = !(matchesSearch && matchesTag);
         if (!card.hidden) visibleCount++;
@@ -118,7 +121,7 @@ title: Inicio
     }
 
     searchInput.addEventListener('input', (e) => {
-      searchQuery = e.target.value.toLowerCase().trim();
+      searchQuery = normalize(e.target.value.trim());
       searchClear.hidden = e.target.value === '';
       filterRecipes();
     });

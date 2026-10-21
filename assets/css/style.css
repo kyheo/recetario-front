@@ -355,7 +355,7 @@ a:hover {
 .recipe-card[data-cat="guiso"] { --cat: var(--cat-guiso); }
 .recipe-card[data-cat="papas"] { --cat: var(--cat-papas); }
 .recipe-card[data-cat="merienda"] { --cat: var(--cat-merienda); }
-.recipe-card[data-cat="sarten"] { --cat: var(--cat-sarten); }
+.recipe-card[data-cat="sartén"] { --cat: var(--cat-sarten); }
 .recipe-card[data-cat="horno"] { --cat: var(--cat-horno); }
 
 .recipe-card:hover {
@@ -455,6 +455,42 @@ a:hover {
   transform: translateX(-3px);
 }
 
+.wake-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 var(--space-4);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-muted);
+  background-color: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.wake-toggle .icon {
+  font-size: 1.1rem;
+}
+
+.wake-toggle:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.wake-toggle[aria-pressed="true"] {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: var(--on-primary);
+}
+
+.wake-toggle:focus-visible {
+  border-radius: 999px;
+}
+
 .recipe-header {
   margin-bottom: var(--space-6);
 }
@@ -537,11 +573,13 @@ a:hover {
 }
 
 .ingredients-column h1,
-.ingredients-column h2 {
+.ingredients-column h2,
+.recipe-column > h1:first-child,
+.recipe-column > h2:first-child {
   margin-bottom: var(--space-2);
 }
 
-.ingredients-tools {
+.section-tools {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -553,11 +591,11 @@ a:hover {
   border-bottom: 1px solid var(--border-color);
 }
 
-.ingredients-progress {
+.section-progress {
   font-weight: 600;
 }
 
-.ingredients-clear {
+.section-clear {
   font-family: var(--font-sans);
   font-size: var(--text-sm);
   font-weight: 600;
@@ -568,16 +606,20 @@ a:hover {
   padding: var(--space-1) 0;
 }
 
-.ingredients-clear:hover {
+.section-clear:hover {
   color: var(--primary-hover);
   text-decoration: underline;
 }
 
-.ingredients-clear:disabled {
+.section-clear:disabled {
   color: var(--text-muted);
   opacity: 0.5;
   cursor: default;
   text-decoration: none;
+}
+
+.ingredients-column > p {
+  margin: var(--space-3) 0;
 }
 
 .ingredients-column ul,
@@ -743,6 +785,37 @@ a:hover {
   margin-bottom: var(--space-2);
 }
 
+.preparation-column .section-tools {
+  margin-bottom: var(--space-4);
+}
+
+/* Steps you tap to mark as done; the next one to do is highlighted */
+.step {
+  cursor: pointer;
+  border-radius: 2px;
+  transition: opacity 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+@media (hover: hover) {
+  .step:hover {
+    background-color: var(--surface-2);
+    box-shadow: 0 0 0 6px var(--surface-2);
+  }
+}
+
+.step:focus-visible {
+  box-shadow: var(--focus-ring);
+}
+
+.step.step-done {
+  opacity: 0.45;
+}
+
+.step.step-current {
+  background-color: var(--primary-light);
+  box-shadow: 0 0 0 6px var(--primary-light);
+}
+
 /* 404 */
 .not-found {
   max-width: 520px;
@@ -813,10 +886,53 @@ a:hover {
   }
 }
 
+.section-tabs {
+  display: none;
+}
+
 @media (max-width: 900px) {
   .recipe-columns {
     grid-template-columns: 1fr;
     gap: var(--space-6);
+  }
+
+  /* With the sections stacked, sticky tabs jump between them */
+  .section-tabs {
+    display: flex;
+    gap: var(--space-2);
+    position: sticky;
+    top: var(--header-height);
+    z-index: 50;
+    margin: 0 calc(-1 * var(--space-5)) var(--space-4);
+    padding: var(--space-2) var(--space-5);
+    background-color: var(--bg-color);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .section-tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    border-radius: 999px;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+
+  .section-tab:focus-visible {
+    border-radius: 999px;
+  }
+
+  .section-tab.active {
+    background-color: var(--primary-light);
+    color: var(--primary);
+  }
+
+  .recipe-content-body h1,
+  .recipe-content-body h2 {
+    scroll-margin-top: calc(var(--header-height) + 72px);
   }
 }
 
@@ -863,8 +979,29 @@ a:hover {
     padding: var(--space-4);
   }
 
+  .section-tabs {
+    margin: 0 calc(-1 * var(--space-4)) var(--space-4);
+    padding: var(--space-2) var(--space-4);
+  }
+
+  /* Larger text, readable at arm's length while cooking */
   .preparation-column {
-    font-size: 1rem;
+    font-size: 1.15rem;
+    line-height: 1.75;
+  }
+
+  .ingredient-text {
+    font-size: 1.05rem;
+  }
+
+  .wake-toggle {
+    padding: 0 var(--space-3);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
   }
 }
 

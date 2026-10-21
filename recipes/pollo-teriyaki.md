@@ -1,11 +1,11 @@
 ---
 layout: libdoc/page-recipe
-title: "Pollo Teriyaki"
+title: "Pollo teriyaki"
 category: recetas 
 
 tags: 
   - pollo
-  - sarten
+  - sartén
 
 tiempo_preparacion: 10 minutos
 tiempo_coccion: 35 minutos

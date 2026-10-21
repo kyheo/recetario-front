@@ -1,6 +1,6 @@
 ---
 layout: libdoc/page-recipe
-title: "Masa Madre"
+title: "Masa madre"
 category: recetas 
 
 tags: 

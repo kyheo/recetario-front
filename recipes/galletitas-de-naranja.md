@@ -1,6 +1,6 @@
 ---
 layout: libdoc/page-recipe
-title: "Galletitas De Naranja"
+title: "Galletitas de naranja"
 category: recetas 
 
 tags: 
