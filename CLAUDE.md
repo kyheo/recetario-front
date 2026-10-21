@@ -9,14 +9,22 @@ A personal recipe site ("Recetario") built with Jekyll 4 and served at https://r
 
 ## Commands
 
+Local builds use the Homebrew Ruby 4.0 and its bundled Bundler (no Ruby version manager); gems live in the project,
+not system-wide.
+
 ```sh
+bundle config set --local path vendor/bundle   # once per clone: install gems into vendor/bundle (gitignored)
 bundle install                 # install gems from Gemfile.lock
 bundle exec jekyll serve       # local preview at http://localhost:4000 (restart after editing _config.yml)
 bundle exec jekyll build       # build into _site/
 ```
 
-Deployment is automatic: pushing to `main` runs `.github/workflows/jekyll-gh-pages.yml`, which builds with Ruby 3.2
-and `JEKYLL_ENV=production` and deploys to GitHub Pages. A push to `main` publishes the live site.
+Deployment is automatic: pushing to `main` runs `.github/workflows/jekyll-gh-pages.yml`, which builds with Ruby 4.0
+and `JEKYLL_ENV=production` and deploys to GitHub Pages. A push to `main` publishes the live site. Keep the
+workflow's `ruby-version` in step with the local Ruby.
+
+`Gemfile.lock` is locked to Bundler 4.0.20. A plain `bundle update --bundler` locks the newest release, prereleases
+included, so pass the version: `bundle update --bundler=4.0.20`.
 
 ## Architecture
 
@@ -33,6 +41,4 @@ and `JEKYLL_ENV=production` and deploys to GitHub Pages. A push to `main` publis
   Renaming those headings or putting content between "Ingredientes" and its list breaks this.
 - Layout chain: `libdoc/page-recipe` and `libdoc/page` both extend `_layouts/default.html` (header, footer,
   `{% seo %}`, Google Fonts). All styling is in `assets/css/style.css`.
-- `_includes/libdoc/menu-basic.html` is a leftover sidebar include from the original theme and isn't referenced by
-  any layout.
 - `recipes/template.md` is gitignored, so it may exist locally as a personal starting point but isn't in the repo.
