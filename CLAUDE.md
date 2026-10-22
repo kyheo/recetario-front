@@ -23,6 +23,12 @@ Deployment is automatic: pushing to `main` runs `.github/workflows/jekyll-gh-pag
 and `JEKYLL_ENV=production` and deploys to GitHub Pages. A push to `main` publishes the live site. Keep the
 workflow's `ruby-version` in step with the local Ruby.
 
+Recipes are also edited with the web editor in `../recetario-editor` (not on GitHub yet), which runs
+on a home server, commits to its own clone and pushes to `main` when someone publishes. So `main` on GitHub may
+have recipe commits that aren't here: `git pull` before editing recipes locally. The editor reads and rewrites
+recipe files (front matter order, the `## Ingredientes` / `## Preparación` / `## Notas` headings), so a change to
+the recipe format or those headings needs a matching change there.
+
 `Gemfile.lock` is locked to Bundler 4.0.20. A plain `bundle update --bundler` locks the newest release, prereleases
 included, so pass the version: `bundle update --bundler=4.0.20`.
 
