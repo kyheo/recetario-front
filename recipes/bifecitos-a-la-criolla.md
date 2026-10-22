@@ -1,10 +1,11 @@
 ---
 layout: libdoc/page-recipe
 title: "Bifecitos a la criolla"
-category: recetas 
+category: recetas
 
-tags: 
+tags:
   - guiso
+  - papas
 
 tiempo_preparacion: 10 minutos
 tiempo_coccion: 30 minutos
@@ -25,9 +26,7 @@ tiempo_coccion: 30 minutos
 * Sal, pimienta negra, pimentón dulce y una hoja de laurel.
 * Aceite de oliva o de girasol.
 
-
 ## Preparación
-
 **Preparativos**:
 * Cortá la cebolla y los morrones en tiritas (juliana) no muy finas.
 * Cortá los tomates en rodajas o cubos.
