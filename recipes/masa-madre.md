@@ -6,7 +6,7 @@ category: recetas
 tags: 
   - amasados
 
-tiempo_preparacion: 5 días
+tiempo_preparacion:
 tiempo_coccion: 
 ---
 
@@ -25,6 +25,8 @@ Al día siguiente agregar dos cucharadas de harina y un poco de agua. Siempre a
 ojo, buscando que quede espesa la preparación. Tapar y reservar.
 
 Repetir este proceso al menos 5 veces.
+
+El proceso puede durar hasta 5 días.
 
 ## Notas
 Por [@gluten.morgen](https://www.instagram.com/gluten.morgen/).

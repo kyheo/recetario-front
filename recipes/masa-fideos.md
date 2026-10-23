@@ -7,7 +7,7 @@ tags:
   - amasados
   - pastas
 
-tiempo_preparacion: 1 hora
+tiempo_preparacion: 60 minutos
 tiempo_coccion: 10 minutos
 ---
 

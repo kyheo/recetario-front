@@ -6,8 +6,8 @@ category: recetas
 tags: 
   - postre
 
-tiempo_preparacion: 3 horas
-tiempo_coccion: 3 horas
+tiempo_preparacion: 180 minutos
+tiempo_coccion: 180 minutos
 ---
 
 ## Ingredientes
