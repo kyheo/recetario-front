@@ -8,7 +8,7 @@ tags:
   - horno
 
 tiempo_preparacion: 10 minutos
-tiempo_coccion: De 1:30 horas a 2 horas.
+tiempo_coccion: 120 minutos
 ---
 
 ## Ingredientes
@@ -26,6 +26,8 @@ Precalentar el horno a 180 grados.
 En una licuadora poner la leche condensada, la leche, los huevos y la yema.
 Cuando esta todo bien integrado, poner en la flanera y llevar al horno entre una
 hora y media y dos horas a baño María.
+
+La cocción puede durar de 1:30 horas a 2 horas.
 
 Dejar enfriar por 3 horas y calentar para desmoldar.
 

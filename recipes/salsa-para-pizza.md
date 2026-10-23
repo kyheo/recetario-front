@@ -6,7 +6,7 @@ category: recetas
 tags: 
   - horno
 
-tiempo_preparacion: 3 horas
+tiempo_preparacion: 180 minutos
 tiempo_coccion:
 ---
 
